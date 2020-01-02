@@ -1,0 +1,5 @@
+{
+  "port": "9000",
+  "mongoUri": "mongodb+srv://sergey:sergey123@cluster0-a93by.azure.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "sp youtube mern"
+}
