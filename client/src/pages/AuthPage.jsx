@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHttp } from "../hooks/http.hooks";
 import { useMessage } from "../hooks/message.hook";
+import { AuthContext } from "../context/Auth.context";
 
 const AuthPage = () => {
+  const auth = useContext(AuthContext);
   const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({ email: "", password: "" });
   const message = useMessage();
@@ -12,6 +14,10 @@ const AuthPage = () => {
     clearError();
   }, [error, message, clearError]);
 
+  useEffect(() => {
+    window.M.updateTextFields();
+  }, []);
+
   const changeHandler = event => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
@@ -19,7 +25,14 @@ const AuthPage = () => {
   const registerHandler = async () => {
     try {
       const data = await request("/api/auth/register", "POST", { ...form });
-      console.log("Data:" + data.message);
+      message(data.message);
+    } catch (error) {}
+  };
+  const loginHandler = async () => {
+    try {
+      const data = await request("/api/auth/login", "POST", { ...form });
+      message(data.message);
+      auth.login(data.token, data.userId);
     } catch (error) {}
   };
 
@@ -64,6 +77,7 @@ const AuthPage = () => {
                 className="btn yellow darken-4"
                 style={{ marginRight: "10px" }}
                 disabled={loading}
+                onClick={loginHandler}
               >
                 Enter
               </button>

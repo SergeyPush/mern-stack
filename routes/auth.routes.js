@@ -70,7 +70,7 @@ router.post(
         expiresIn: "1h"
       });
 
-      res.json({ token, userId: user.userId });
+      res.json({ token, userId: user.id });
     } catch (error) {
       res
         .status(400)
