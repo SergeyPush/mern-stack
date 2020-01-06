@@ -54,6 +54,7 @@ const AuthPage = () => {
                     autoComplete="off"
                     name="email"
                     className="yellow-input"
+                    value={form.email}
                     onChange={changeHandler}
                   />
                   <label htmlFor="email">First Name</label>
@@ -67,6 +68,7 @@ const AuthPage = () => {
                     name="password"
                     className="yellow-input"
                     onChange={changeHandler}
+                    value={form.password}
                   />
                   <label htmlFor="password">First Name</label>
                 </div>
